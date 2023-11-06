@@ -99,8 +99,8 @@ what pwnable.kr is suggesting giving us these two hints:
 
 A fast search about ulimit and ret2libc exploits brought me these results:
 
-- <http://stackoverflow.com/questions/17630745/why-ulimit-s-unlimited-can-de-aslr-in-overflow>
-- <http://security.cs.pub.ro/hexcellents/wiki/kb/exploiting/home>
+- <https://stackoverflow.com/questions/17630745/why-ulimit-s-unlimited-can-de-aslr-in-overflow>
+- <https://security.cs.pub.ro/hexcellents/wiki/kb/exploiting/home>
 
 An old implementation of `mmaps` doesn't use ASLR when the stack size limit
 is set to unlimited, and guess what...the binary `ascii_easy` is a 32bits 
@@ -108,7 +108,7 @@ architecture. So `ulimit -s unlimited` should do the work in order to have
 libc mapped always at the same address.
 
 Note: apparently this "flaw" has been 
-[fixed](http://hmarco.org/bugs/CVE-2016-3672-Unlimiting-the-stack-not-longer-disables-ASLR.html)
+[fixed](https://hmarco.org/bugs/CVE-2016-3672-Unlimiting-the-stack-not-longer-disables-ASLR.html)
 recently.
 
 Let's use `execlp` to spawn a shell. After the stack's size has been set to

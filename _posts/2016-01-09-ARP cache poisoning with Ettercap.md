@@ -42,7 +42,7 @@ ettercap -T -k /tmp/hosts
 Note that I’m using a file under /tmp , this is because even if Ettercap needs
 to have the necessary privileges to run, it will then drop his privileges and
 sets UID = 65535 (nobody) after the initialization phase.  
-For more infos have a look to the [manual](http://linux.die.net/man/8/ettercap).
+For more infos have a look to the [manual](https://linux.die.net/man/8/ettercap).
 
 We can then use that file with the -j option.
 
@@ -94,8 +94,8 @@ The possibility are infinites. Here the principle:
    Example:
 
 	    if (ip.proto == TCP && tcp.src == 80) {
-	       replace("img src=", "img src=\"http://somewebsite.com/pwned.png\" ");
-	       replace("IMG SRC=", "img src=\"http://somewebsite.com/pwned.png\" ");
+	       replace("img src=", "img src=\"https://somewebsite.com/pwned.png\" ");
+	       replace("IMG SRC=", "img src=\"https://somewebsite.com/pwned.png\" ");
 	       msg("Filter Ran.\n");
 	    }
 

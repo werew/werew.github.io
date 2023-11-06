@@ -148,7 +148,7 @@ if(memcmp(buf, "\x00\x0a\x02\xff", 4)) return 0;
 
 The program ‘input’ must read “\x00\x0a\x00\xff” from the stdin and
 “\x00\x0a\x02\xff” from the stderr.  This could be done using
-[pipes](http://tldp.org/LDP/lpg/node11.html).  We will use two pipes: one for
+[pipes](https://tldp.org/LDP/lpg/node11.html).  We will use two pipes: one for
 the stdin, one for the stderr.  In brief:
 
 1.  Create two pipes: pipe2stdin and pipe2stderr
@@ -163,7 +163,7 @@ the stdin, one for the stderr.  In brief:
 
 
 Further reading: [Mapping UNIX pipe descriptors to stdin and stdout in
-C](http://unixwiz.net/techtips/remap-pipe-fds.html)
+C](https://unixwiz.net/techtips/remap-pipe-fds.html)
 
 Then, let’s add this code:
 
@@ -243,7 +243,7 @@ So far, so good: stage 4 clear!
 #### Stage 5 – network
 
 In this last stage the program “input” becomes a 
-[server](http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html), 
+[server](https://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html), 
 which will wait for incoming connections on a given port:
 
 ```c
@@ -315,7 +315,7 @@ network! ) otherwise our traffic will be blocked.
 **Using our C program**
 
 We can [build our own C
-client](http://gnosis.cx/publish/programming/sockets.html).
+client](https://gnosis.cx/publish/programming/sockets.html).
 
 
 ```c

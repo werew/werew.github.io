@@ -115,7 +115,7 @@ the username and password.
 So far we need to find the address of a set of instructions that will give us
 some sort of privileges useful to achieve what we aim for. This is the idea
 behind famous exploits as [return to libc](
-http://en.wikipedia.org/wiki/Return-to-libc_attack).
+https://en.wikipedia.org/wiki/Return-to-libc_attack).
 
 But wait, in our case there is a part of the memory over which we have the
 complete control: two arrays containing the password and the username.  So what
@@ -220,7 +220,7 @@ character, we need to take it out.
 
 Unfortunately our payload has several null characters. I could spend time
 changing the code in order to remove them all (for this I found a nice resource
-[here](http://repo.hackerzvoice.net/depot_ouah/mipsshellcode.pdf)) but I will
+[here](https://repo.hackerzvoice.net/depot_ouah/mipsshellcode.pdf)) but I will
 just pick a shellcode made from somebody else. I found [this
 one](https://www.exploit-db.com/exploits/18162/) who seems to be nice.
 
@@ -241,7 +241,7 @@ that will make `scanf` stop reading. We need to remove it.
 
 This character is part of the system call code. Having a look to the [Mips
 instruction
-reference](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html) we can
+reference](https://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html) we can
 see that the code of a syscall has a big group of bits that can be freely
 changed. Bringing to 1 the last of those bits will change our character from
 \x0c to \x4c. This should be enough to allow our shellcode to pass.
@@ -311,11 +311,11 @@ of our code. How do we get it?
 Usually there is no way to get it directly, you can get an idea using some
 debugger (still, be aware that the debugger will store some data in the stack
 for his purposes. Have a look
-[here](http://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it)
+[here](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it)
 and
-[here](http://reverseengineering.stackexchange.com/questions/2983/how-to-predict-address-space-layout-differences-between-real-and-gdb-controlled))
+[here](https://reverseengineering.stackexchange.com/questions/2983/how-to-predict-address-space-layout-differences-between-real-and-gdb-controlled))
 or generating a core dump (more or less like in
-[here](http://pen-testing.sans.org/resources/papers/gcih/discovering-local-suid-exploit-105447))
+[here](https://pen-testing.sans.org/resources/papers/gcih/discovering-local-suid-exploit-105447))
 but generally we need to guess.
 
 In order to make things easier we will use a [nop
@@ -363,10 +363,10 @@ We can see that the Alan server actually does execute the shell but it exits
 before we could use it.  I searched a bit around and I found some people
 talking about this:
 
-- <http://louisrli.github.io/blog/2012/08/24/protostar-stack1/#.VlKEQnr5I8o>
+- <https://louisrli.github.io/blog/2012/08/24/protostar-stack1/#.VlKEQnr5I8o>
 - <https://www.mattandreko.com/2011/12/17/exploit-exercises-protostar-stack-5/>
-- <http://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell>
-- <http://stackoverflow.com/questions/2859127/shellcode-for-a-simple-stack-overflow-exploited-program-with-shell-terminates-d>
+- <https://stackoverflow.com/questions/10767070/buffer-overflow-program-terminates-after-spawning-a-shell>
+- <https://stackoverflow.com/questions/2859127/shellcode-for-a-simple-stack-overflow-exploited-program-with-shell-terminates-d>
 
 It turns out that /bin/sh has has some problem when trying to read from the
 stdin.  So let’s try how suggested in here to close and reopen the fd of the

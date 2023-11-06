@@ -8,7 +8,7 @@ image:
 
 
 Leviathan is a one of the easiest wargames hosted by the famous website OTW
-([overthewire.org](http://overthewire.org)).
+([overthewire.org](https://overthewire.org)).
 
 Here is a short walktrough of it's 7 levels :)
 

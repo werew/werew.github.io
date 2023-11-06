@@ -52,7 +52,7 @@ use tap interfaces etc…
 
 In this article I will talk about how to build a virtual network using tap
 interfaces.
-[Here](http://csortu.blogspot.fr/2009/12/building-virtual-network-with-qemu.html)
+[Here](https://csortu.blogspot.fr/2009/12/building-virtual-network-with-qemu.html)
 is an article talking more or less about the same thing, using socket
 connection between the virtual machines.
 
@@ -63,9 +63,9 @@ a list of some interesting references:
 
 From “Blogs by Sriram“
 
-- [Understanding Virtual Networks – The Basics](http://www.innervoice.in/blogs/2012/08/16/understanding-virtual-networks-the-basics/)
-- [Linux Bridge and Virtual Networking](http://www.innervoice.in/blogs/2013/12/02/linux-bridge-virtual-networking/)
-- [Tap Interfaces and Linux Bridge](http://www.innervoice.in/blogs/2013/12/08/tap-interfaces-linux-bridge/)
+- [Understanding Virtual Networks – The Basics](https://www.innervoice.in/blogs/2012/08/16/understanding-virtual-networks-the-basics/)
+- [Linux Bridge and Virtual Networking](https://www.innervoice.in/blogs/2013/12/02/linux-bridge-virtual-networking/)
+- [Tap Interfaces and Linux Bridge](https://www.innervoice.in/blogs/2013/12/08/tap-interfaces-linux-bridge/)
 
 The kernel documentation
 
@@ -73,7 +73,7 @@ The kernel documentation
 
 From backreference.org
 
-- [Tun/Tap interface tutorial](http://backreference.org/2010/03/26/tuntap-interface-tutorial/)
+- [Tun/Tap interface tutorial](https://backreference.org/2010/03/26/tuntap-interface-tutorial/)
 
 “Le site du Zero” an extremely useful learning resource (french)
 
@@ -122,7 +122,7 @@ usual.
 As I want QEMU to be invoked without any particular privilege I will use a script that
 will be executed with higher privileges and then I will execute QEMU with
 “normal” privileges (this is more ore less the same principle behind [QEMU’s
-network helper](http://wiki.qemu.org/Features-Done/HelperNetworking)).
+network helper](https://wiki.qemu.org/Features-Done/HelperNetworking)).
 
 I also want to keep everything as simple as possible so, instead of executing
 ifup (or ifdown) every time a machine of my network goes up (or down) I will
@@ -308,7 +308,7 @@ tap device ktap1.
 ![ifconfig_img](/deb1-ifconfig-a.png)
 
 We can configure the file [/etc/network/interfaces]
-(http://unix.stackexchange.com/questions/128439/good-detailed-explanation-of-etc-network-interfaces-syntax)
+(https://unix.stackexchange.com/questions/128439/good-detailed-explanation-of-etc-network-interfaces-syntax)
 in order to bring it up and assign a static IP address. We add a stanza for
 this second interface:
 
@@ -373,7 +373,7 @@ simply be done by running in both the machines the command: `route add default
 gw 192.168.1.254`
 
 NOTE: this solution will not be persistent, have a look
-[here](http://www.cyberciti.biz/faq/howto-linux-configuring-default-route-with-ipcommand/)
+[here](https://www.cyberciti.biz/faq/howto-linux-configuring-default-route-with-ipcommand/)
 to see a more complete overview of the possible solutions.
 
 Now deb2 and deb3 know that they need to ask deb1 if they want to reach an
@@ -381,7 +381,7 @@ external network, but deb1 is still not configured to work as a router: it
 will not forward their request to the host.
 
 Here there is a simple guide on [how to set up a router]
-(http://how-to.wikia.com/wiki/How_to_set_up_a_NAT_router_on_a_Linux-based_computer).
+(https://how-to.wikia.com/wiki/How_to_set_up_a_NAT_router_on_a_Linux-based_computer).
 
 We need to configure deb1 adding some rule to his
 [iptables](https://wiki.archlinux.org/index.php/Iptables):

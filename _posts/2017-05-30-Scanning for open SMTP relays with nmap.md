@@ -15,7 +15,7 @@ If passed with the option `--script` to nmap this script will
 determine if an email server is an open relay.
 
 In order not to scan blindly some ranges we can take some country-based ip
-ranges from [here](http://www.ipaddresslocation.org/ip_ranges/get_ranges.php).
+ranges from [here](https://www.ipaddresslocation.org/ip_ranges/get_ranges.php).
 Let's save those ranges in a file ranges.txt.  
 
 Now we can launch the scan:
@@ -42,7 +42,7 @@ There are a lot of nmap's options, not all of them are necessary
 but are simply there to make things better. Let's have a look at them: 
 
 - **-p 25,465,587**: we limit the scan at just some
-    [common SMTP ports](http://blog.mailgun.com/25-465-587-what-port-should-i-use)
+    [common SMTP ports](https://blog.mailgun.com/25-465-587-what-port-should-i-use)
 - **-n**: never do DNS resolution, as we are using ip addresses 
 - **-T 4**: aggressive scan time template, in short: go fast, don't wait much...
 - **--min-parallelism 100**: minimum total of parallel probes...pretty high
@@ -56,7 +56,7 @@ When run, the scan will output something like this:
 ```console
 $ nmap -Pn --script smtp-open-relay -p 25,465,587 smtp.bbox.fr
 
-Starting Nmap 6.40 ( http://nmap.org ) at 2017-05-22 17:01 CEST
+Starting Nmap 6.40 ( https://nmap.org ) at 2017-05-22 17:01 CEST
 Nmap scan report for smtp.bbox.fr (194.158.122.55)
 Host is up (0.034s latency).
 PORT    STATE SERVICE

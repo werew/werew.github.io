@@ -24,7 +24,7 @@ The function rand returns a pseudo random value between 0 and RAND_MAX (a
 constant defined in stdlib.h). It is called "pseudo random" because it doesn't
 actually return a totally random value but it returns the entries of a
 somehow [predictable "list" of numbers](
-http://stackoverflow.com/questions/1026327/what-common-algorithms-are-used-for-cs-rand)
+https://stackoverflow.com/questions/1026327/what-common-algorithms-are-used-for-cs-rand)
 , this "list" will necessarily repeat itself after a certain period.
 
 Here's the scoop: rand needs a point where to start.  Usually this point (seed)

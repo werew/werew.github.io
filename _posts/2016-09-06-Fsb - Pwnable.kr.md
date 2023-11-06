@@ -15,7 +15,7 @@ hence allows to easily read/write data.
 
 Here is a good resource (in french) to learn more about this vulnerability:
 
-- <http://www.bases-hacking.org/format-strings.html>
+- <https://www.bases-hacking.org/format-strings.html>
 
 
 In this challenge we need to exploit the program below:

@@ -143,7 +143,7 @@ Once we have a look to the code we can see how this 2 versions are implemented:
   64 bytes.  In addition it uses the instruction movntps to store the value
   copied in those registers into the destination. This instruction is
   particularly fast because it also asks the CPU not to sync the cache hierarchy
-  (more infos: <http://x86.renejeschke.de/html/file_module_x86_id_197.html>)
+  (more infos: <https://x86.renejeschke.de/html/file_module_x86_id_197.html>)
   Also the destination operand should be 16 byte aligned.
 
 

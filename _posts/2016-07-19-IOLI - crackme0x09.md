@@ -7,7 +7,7 @@ tags: ['IOLI']
 
 
 This level adds nothing new to the previous nine crackmes of the 
-[IOLI - suite ](http://github.com/Maijin/Workshop20LI-crackme)
+[IOLI - suite ](https://github.com/Maijin/Workshop20LI-crackme)
 Let's have a look to the function main:
 
 ```nasm
@@ -55,7 +55,7 @@ Let's have a look to the function main:
 
 It looks like the program is compiled using the flag `-fPIC` and the 
 compiler chose `ebx` [as PIC register](
-http://stackoverflow.com/questions/38372759/what-is-this-pattern-where-the-ebx-register-is-used-for-memory-access).
+https://stackoverflow.com/questions/38372759/what-is-this-pattern-where-the-ebx-register-is-used-for-memory-access).
 The function at `0x08048766` is used to assign to `ebx` the instruction
 immediately following the call instruction. Since the size of a call
 instruction is 5 bytes this translates into `ebx = eip + 5`.

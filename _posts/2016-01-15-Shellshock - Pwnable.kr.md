@@ -58,9 +58,9 @@ only if I knew CVE-2014-6271 ten years ago..!!
 ```
 
 Some nice resources:   
-<http://fedoramagazine.org/shellshock-how-does-it-actually-work/>   
-<http://security.stackexchange.com/questions/68122/what-is-a-specific-example-of-how-the-shellshock-bash-bug-could-be-exploited>   
-<http://unixpapa.com/incnote/setuid.html>
+<https://fedoramagazine.org/shellshock-how-does-it-actually-work/>   
+<https://security.stackexchange.com/questions/68122/what-is-a-specific-example-of-how-the-shellshock-bash-bug-could-be-exploited>   
+<https://unixpapa.com/incnote/setuid.html>
 
 
 

@@ -38,7 +38,7 @@ is the cause of the program crashing (together with the part `pop ebp` of the in
 `leave`).
 
 After that it should be fairly easy to find where the value of `ebp` is changing, for this
-we can just [set some watchpoint](http://stackoverflow.com/questions/2223425/gdb-breakpoint-when-register-will-have-value-0xffaa).
+we can just [set some watchpoint](https://stackoverflow.com/questions/2223425/gdb-breakpoint-when-register-will-have-value-0xffaa).
 
 
 ```nasm
