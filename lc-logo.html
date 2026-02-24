@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=VT323&family=Share+Tech+Mono&family=Nova+Mono&family=Space+Mono:wght@700&family=Press+Start+2P&family=IBM+Plex+Mono:wght@700&family=Silkscreen:wght@700&family=Oxanium:wght@700&family=Martian+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0d0d;
+    padding: 50px 60px 80px;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  .controls button {
+    background: none;
+    border: 1px solid #333;
+    color: #555;
+    font-family: monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 8px 24px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .controls button:hover {
+    border-color: #666;
+    color: #999;
+  }
+
+  .controls button.active {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .label {
+    color: #555;
+    font-family: monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .canvas {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    outline: 1px solid #333;
+  }
+
+  .lc-wrap {
+    position: relative;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .lc-wrap.major { font-family: 'Major Mono Display', monospace; font-size: 140px; font-weight: 700; letter-spacing: -4px; }
+  .lc-wrap.vt323 { font-family: 'VT323', monospace;              font-size: 210px;                   letter-spacing: -4px; }
+  .lc-wrap.share { font-family: 'Share Tech Mono', monospace;    font-size: 170px; font-weight: 400; letter-spacing: -6px; }
+  .lc-wrap.nova  { font-family: 'Nova Mono', monospace;          font-size: 160px; font-weight: 400; letter-spacing: -4px; }
+  .lc-wrap.space { font-family: 'Space Mono', monospace;         font-size: 150px; font-weight: 700; letter-spacing: -8px; }
+  .lc-wrap.press { font-family: 'Press Start 2P', monospace;     font-size:  80px; font-weight: 400; letter-spacing: -2px; }
+  .lc-wrap.ibm   { font-family: 'IBM Plex Mono', monospace;      font-size: 170px; font-weight: 700; letter-spacing: -6px; }
+  .lc-wrap.silk  { font-family: 'Silkscreen', monospace;         font-size: 150px; font-weight: 700; letter-spacing: -4px; }
+  .lc-wrap.oxa   { font-family: 'Oxanium', monospace;            font-size: 170px; font-weight: 700; letter-spacing: -4px; }
+  .lc-wrap.mart  { font-family: 'Martian Mono', monospace;       font-size: 150px; font-weight: 700; letter-spacing: -4px; }
+
+  .lc-base { color: #fff; }
+
+  .lc-r1 {
+    position: absolute; inset: 0;
+    color: #e00;
+    clip-path: polygon(0 0,   100% 0,   100% 33%,  0 33%);
+    transform: translate(-5px, 0);
+  }
+  .lc-r2 {
+    position: absolute; inset: 0;
+    color: #e00;
+    clip-path: polygon(0 78%, 100% 78%, 100% 92%, 0 92%);
+    transform: translate(3px, 1px);
+  }
+  .lc-b1 {
+    position: absolute; inset: 0;
+    color: #08f;
+    clip-path: polygon(0 46%, 100% 46%, 100% 68%, 0 68%);
+    transform: translate(5px, 0);
+  }
+
+  .scanlines {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 3px,
+      rgba(0,0,0,0.13) 3px, rgba(0,0,0,0.13) 4px
+    );
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="active" onclick="setVariant('LC', this)">LC</button>
+  <button onclick="setVariant('lc', this)">lc</button>
+  <button onclick="setVariant('Lc', this)">Lc</button>
+  <button onclick="setVariant('lC', this)">lC</button>
+</div>
+
+<div class="grid">
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap major">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Major Mono Display</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap vt323">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">VT323</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap share">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Share Tech Mono</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap nova">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Nova Mono</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap space">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Space Mono</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap press">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Press Start 2P</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap ibm">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">IBM Plex Mono</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap silk">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Silkscreen</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap oxa">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Oxanium</span>
+  </div>
+
+  <div class="variant">
+    <div class="canvas">
+      <div class="lc-wrap mart">
+        <span class="lc-base">LC</span><span class="lc-r1">LC</span><span class="lc-r2">LC</span><span class="lc-b1">LC</span>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+    <span class="label">Martian Mono</span>
+  </div>
+
+</div>
+
+<script>
+  function setVariant(text, btn) {
+    document.querySelectorAll('.lc-base, .lc-r1, .lc-r2, .lc-b1').forEach(function(el) {
+      el.textContent = text;
+    });
+    document.querySelectorAll('.controls button').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
