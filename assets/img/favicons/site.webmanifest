@@ -1,9 +1,6 @@
----
-layout: compress
----
 {
-  "name": "ret2libc.com",
-  "short_name": "r2l",
+  "name": "r2lc",
+  "short_name": "r2lc",
   "icons": [
     {
       "src": "/assets/img/favicons/web-app-manifest-192x192.png",
