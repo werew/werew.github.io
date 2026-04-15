@@ -1,6 +1,6 @@
 ---
 title: "Using Hermes’s Quicksort to run Doom: A tale of JavaScript exploitation"
-date: 2020-07-20
+date: 2022-07-20
 categories: [Exploitation]
 tags: ['JS', 'Hermes']
 img_path: "2022-07-20-hermes-doom"
