@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 190" width="500" height="190">
+  <defs>
+    <!-- Clip paths target slices across every text row -->
+    <clipPath id="s1">
+      <rect x="0" y="24" width="500" height="6"/>
+      <rect x="0" y="46" width="500" height="6"/>
+      <rect x="0" y="78" width="500" height="6"/>
+      <rect x="0" y="100" width="500" height="6"/>
+      <rect x="0" y="132" width="500" height="6"/>
+      <rect x="0" y="154" width="500" height="6"/>
+    </clipPath>
+    <clipPath id="s2">
+      <rect x="0" y="30" width="500" height="5"/>
+      <rect x="0" y="52" width="500" height="5"/>
+      <rect x="0" y="84" width="500" height="5"/>
+      <rect x="0" y="106" width="500" height="5"/>
+      <rect x="0" y="138" width="500" height="5"/>
+      <rect x="0" y="160" width="500" height="5"/>
+    </clipPath>
+    <clipPath id="s3">
+      <rect x="0" y="35" width="500" height="5"/>
+      <rect x="0" y="57" width="500" height="5"/>
+      <rect x="0" y="89" width="500" height="5"/>
+      <rect x="0" y="111" width="500" height="5"/>
+      <rect x="0" y="143" width="500" height="5"/>
+      <rect x="0" y="165" width="500" height="5"/>
+    </clipPath>
+
+    <style>
+      text { font-family: 'Courier New', Courier, monospace; font-size: 14px; }
+
+      /* Default: light mode */
+      .bg  { fill: #f6f8fa; }
+      .out { fill: #1f2328; }
+      .pmt { fill: #57606a; }
+
+      @media (prefers-color-scheme: dark) {
+        .bg  { fill: #0d1117; }
+        .out { fill: #e6edf3; }
+        .pmt { fill: #7d8590; }
+      }
+
+      /* Glitch burst A at ~19–23%, burst B at ~64–68% (each ~200ms at 5s period) */
+      @keyframes gr {
+        0%, 18%, 24%, 63%, 69%, 100% { opacity: 0; transform: none; }
+        19% { opacity: 1; transform: translateX(-5px); }
+        20% { opacity: 1; transform: translateX(-8px); }
+        21% { opacity: 1; transform: translateX(-5px); }
+        22% { opacity: 1; transform: translateX(-7px); }
+        23% { opacity: 1; transform: translateX(-4px); }
+        64% { opacity: 1; transform: translateX(-6px); }
+        65% { opacity: 1; transform: translateX(-9px); }
+        66% { opacity: 1; transform: translateX(-5px); }
+        67% { opacity: 1; transform: translateX(-7px); }
+        68% { opacity: 1; transform: translateX(-4px); }
+      }
+      @keyframes gc {
+        0%, 18%, 24%, 63%, 69%, 100% { opacity: 0; transform: none; }
+        19% { opacity: 1; transform: translateX(5px); }
+        20% { opacity: 1; transform: translateX(8px); }
+        21% { opacity: 1; transform: translateX(5px); }
+        22% { opacity: 1; transform: translateX(7px); }
+        23% { opacity: 1; transform: translateX(4px); }
+        64% { opacity: 1; transform: translateX(6px); }
+        65% { opacity: 1; transform: translateX(9px); }
+        66% { opacity: 1; transform: translateX(5px); }
+        67% { opacity: 1; transform: translateX(7px); }
+        68% { opacity: 1; transform: translateX(4px); }
+      }
+
+      /* Two periods (5s, 7s) create aperiodic, more natural glitching */
+      .r1, .r1 * { fill: #ff3060; clip-path: url(#s1); animation: gr 5s infinite; }
+      .c1, .c1 * { fill: #00dfd0; clip-path: url(#s2); animation: gc 5s infinite; }
+      .r2, .r2 * { fill: #ff3060; clip-path: url(#s3); animation: gr 7s infinite 1.5s; }
+      .c2, .c2 * { fill: #00dfd0; clip-path: url(#s1); animation: gc 7s infinite 1.5s; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="500" height="190" rx="6"/>
+
+  <!-- $ whoami -->
+  <text x="20" y="36">
+    <tspan class="pmt">$</tspan><tspan class="out"> whoami</tspan>
+  </text>
+  <text x="20" y="36" class="r1">$ whoami</text>
+  <text x="20" y="36" class="c1">$ whoami</text>
+  <text x="20" y="36" class="r2">$ whoami</text>
+  <text x="20" y="36" class="c2">$ whoami</text>
+
+  <!-- identity line with glitch layers -->
+  <text x="20" y="58" class="out">luigi (werew) &#8212; security engineer @ meta</text>
+  <text x="20" y="58" class="r1">luigi (werew) &#8212; security engineer @ meta</text>
+  <text x="20" y="58" class="c1">luigi (werew) &#8212; security engineer @ meta</text>
+  <text x="20" y="58" class="r2">luigi (werew) &#8212; security engineer @ meta</text>
+  <text x="20" y="58" class="c2">luigi (werew) &#8212; security engineer @ meta</text>
+
+  <!-- $ cat about.txt -->
+  <text x="20" y="90">
+    <tspan class="pmt">$</tspan><tspan class="out"> cat about.txt</tspan>
+  </text>
+  <text x="20" y="90" class="r1">$ cat about.txt</text>
+  <text x="20" y="90" class="c1">$ cat about.txt</text>
+  <text x="20" y="90" class="r2">$ cat about.txt</text>
+  <text x="20" y="90" class="c2">$ cat about.txt</text>
+  <text x="20" y="112" class="out">security research and other things</text>
+  <text x="20" y="112" class="r1">security research and other things</text>
+  <text x="20" y="112" class="c1">security research and other things</text>
+  <text x="20" y="112" class="r2">security research and other things</text>
+  <text x="20" y="112" class="c2">security research and other things</text>
+
+  <!-- $ echo $FUN_FACT -->
+  <text x="20" y="144">
+    <tspan class="pmt">$</tspan><tspan class="out"> echo $FUN_FACT</tspan>
+  </text>
+  <text x="20" y="144" class="r1">$ echo $FUN_FACT</text>
+  <text x="20" y="144" class="c1">$ echo $FUN_FACT</text>
+  <text x="20" y="144" class="r2">$ echo $FUN_FACT</text>
+  <text x="20" y="144" class="c2">$ echo $FUN_FACT</text>
+  <text x="20" y="166" class="out">switched to colemak. my username has never recovered.</text>
+  <text x="20" y="166" class="r1">switched to colemak. my username has never recovered.</text>
+  <text x="20" y="166" class="c1">switched to colemak. my username has never recovered.</text>
+  <text x="20" y="166" class="r2">switched to colemak. my username has never recovered.</text>
+  <text x="20" y="166" class="c2">switched to colemak. my username has never recovered.</text>
+</svg>
