@@ -1,0 +1,55 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">Scrymap logo</title>
+  <desc id="logo-desc">A glowing graph path shaped like an S over map-style contour lines.</desc>
+  <defs>
+    <linearGradient id="bg-gradient" x1="96" y1="80" x2="432" y2="432" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101223"/>
+      <stop offset="1" stop-color="#181A2C"/>
+    </linearGradient>
+    <radialGradient id="glow-gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 258) rotate(90) scale(188)">
+      <stop stop-color="#5B8DEE" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#5B8DEE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="route-gradient" x1="160" y1="360" x2="355" y2="148" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="0.45" stop-color="#5B8DEE"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="node-gradient" x1="186" y1="146" x2="340" y2="378" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="1" stop-color="#D6E7FF"/>
+    </linearGradient>
+    <filter id="route-glow" x="117" y="104" width="281" height="316" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="12" result="effect1_foregroundBlur"/>
+    </filter>
+  </defs>
+
+  <rect x="40" y="40" width="432" height="432" rx="112" fill="url(#bg-gradient)"/>
+  <rect x="40" y="40" width="432" height="432" rx="112" stroke="#91BAFF" stroke-opacity="0.22" stroke-width="2"/>
+  <circle cx="256" cy="256" r="172" fill="url(#glow-gradient)"/>
+
+  <g opacity="0.2" stroke="#A5C4FF" stroke-width="9" stroke-linecap="round">
+    <path d="M114 146C167 101 235 88 304 109C364 127 409 121 445 93"/>
+    <path d="M92 214C158 173 239 175 309 208C360 232 410 233 448 209"/>
+    <path d="M88 300C154 256 241 261 318 298C375 325 419 325 456 299"/>
+    <path d="M112 390C177 346 258 349 324 383C374 409 415 411 447 389"/>
+  </g>
+
+  <g filter="url(#route-glow)" opacity="0.7">
+    <path d="M355 148C319 121 232 118 190 152C149 185 153 229 207 246C241 256 279 258 315 268C375 284 381 341 336 375C286 412 208 404 160 360" stroke="#5B8DEE" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <path d="M355 148C319 121 232 118 190 152C149 185 153 229 207 246C241 256 279 258 315 268C375 284 381 341 336 375C286 412 208 404 160 360" stroke="url(#route-gradient)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g fill="url(#node-gradient)" stroke="#0D0D14" stroke-width="10">
+    <circle cx="355" cy="148" r="20"/>
+    <circle cx="191" cy="152" r="18"/>
+    <circle cx="207" cy="246" r="17"/>
+    <circle cx="315" cy="268" r="17"/>
+    <circle cx="336" cy="375" r="18"/>
+    <circle cx="160" cy="360" r="20"/>
+  </g>
+
+</svg>
