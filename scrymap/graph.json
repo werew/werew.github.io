@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "Areas/Knowledge Graphs",
+      "name": "Knowledge Graphs",
+      "path": "Areas/Knowledge Graphs.md",
+      "type": "area",
+      "content": "---\nfocus:\n  - note linking\n  - graph views\n  - filters\n---\n\n# Knowledge Graphs\n\nKnowledge graphs help reveal clusters, bridges, and dead ends in a note collection.\n\ndown:: [[Projects/Scrymap Demo]]\ncite:: [[References/Force Graph]]\n[[People/Ada Lovelace]]\n\nTry filtering the graph to focus on areas and references from this note.\n",
+      "color": "#34d399"
+    },
+    {
+      "id": "Home",
+      "name": "Home",
+      "path": "Home.md",
+      "type": "hub",
+      "content": "---\nsummary: Starter map for the included sample vault.\ntags:\n  - demo\n  - home\n---\n\n# Home\n\nThis sample vault is intentionally small, but it shows the main Scrymap features:\n\n- wikilinks and tagged wikilinks\n- vault-defined node types and colors\n- frontmatter lists and link fields in the note viewer\n\ndown:: [[Projects/Scrymap Demo]]\ndown:: [[Areas/Knowledge Graphs]]\ncite:: [[References/Force Graph]]\ninspired-by:: [[People/Ada Lovelace]]\n\nUse the graph to jump into [[Projects/Scrymap Demo|the demo project note]].\n",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "People/Ada Lovelace",
+      "name": "Ada Lovelace",
+      "path": "People/Ada Lovelace.md",
+      "type": "person",
+      "content": "---\ntags:\n  - history\n  - computing\nlinks:\n  - https://en.wikipedia.org/wiki/Ada_Lovelace\n---\n\n# Ada Lovelace\n\nAda Lovelace is included here as a simple person node.\n\n[[Projects/Scrymap Demo]]\n[[Areas/Knowledge Graphs]]\n",
+      "color": "#f472b6"
+    },
+    {
+      "id": "Projects/Scrymap Demo",
+      "name": "Scrymap Demo",
+      "path": "Projects/Scrymap Demo.md",
+      "type": "project",
+      "content": "---\nstatus: active\ntags:\n  - demo\n  - graph\n  - viewer\nlinks:\n  - https://vite.dev/\n  - https://github.com/vasturiano/force-graph\nurl: https://example.com/scrymap-demo\n---\n\n# Scrymap Demo\n\nThis note acts like a project hub inside the sample vault.\n\nIt pulls together ideas from [[Areas/Knowledge Graphs]], cites [[References/Force Graph]], and is inspired-by:: [[People/Ada Lovelace]].\n\nThe frontmatter above is useful for testing the inline viewer:\n\n- `tags` is a YAML list\n- `links` is a YAML list of URLs\n- `url` is a single URL field\n",
+      "color": "#60a5fa"
+    },
+    {
+      "id": "References/Force Graph",
+      "name": "Force Graph",
+      "path": "References/Force Graph.md",
+      "type": "reference",
+      "content": "---\nauthors:\n  - Vasturiano\n  - Open source contributors\nurl: https://github.com/vasturiano/force-graph\n---\n\n# Force Graph\n\n`force-graph` provides the interactive graph rendering used by Scrymap.\n\nIt is cited by [[Projects/Scrymap Demo]] and connected to [[Areas/Knowledge Graphs]].\n",
+      "color": "#c084fc"
+    }
+  ],
+  "links": [
+    {
+      "source": "Areas/Knowledge Graphs",
+      "target": "Projects/Scrymap Demo",
+      "tag": "down"
+    },
+    {
+      "source": "Areas/Knowledge Graphs",
+      "target": "References/Force Graph",
+      "tag": "cite"
+    },
+    {
+      "source": "Areas/Knowledge Graphs",
+      "target": "People/Ada Lovelace",
+      "tag": "link"
+    },
+    {
+      "source": "Home",
+      "target": "Projects/Scrymap Demo",
+      "tag": "down"
+    },
+    {
+      "source": "Home",
+      "target": "Areas/Knowledge Graphs",
+      "tag": "down"
+    },
+    {
+      "source": "Home",
+      "target": "References/Force Graph",
+      "tag": "cite"
+    },
+    {
+      "source": "Home",
+      "target": "People/Ada Lovelace",
+      "tag": "inspired-by"
+    },
+    {
+      "source": "Home",
+      "target": "Projects/Scrymap Demo",
+      "tag": "link"
+    },
+    {
+      "source": "People/Ada Lovelace",
+      "target": "Projects/Scrymap Demo",
+      "tag": "link"
+    },
+    {
+      "source": "People/Ada Lovelace",
+      "target": "Areas/Knowledge Graphs",
+      "tag": "link"
+    },
+    {
+      "source": "Projects/Scrymap Demo",
+      "target": "Areas/Knowledge Graphs",
+      "tag": "link"
+    },
+    {
+      "source": "Projects/Scrymap Demo",
+      "target": "References/Force Graph",
+      "tag": "link"
+    },
+    {
+      "source": "Projects/Scrymap Demo",
+      "target": "People/Ada Lovelace",
+      "tag": "inspired-by"
+    },
+    {
+      "source": "References/Force Graph",
+      "target": "Projects/Scrymap Demo",
+      "tag": "link"
+    },
+    {
+      "source": "References/Force Graph",
+      "target": "Areas/Knowledge Graphs",
+      "tag": "link"
+    }
+  ],
+  "views": [
+    {
+      "name": "Default",
+      "settings": {
+        "chargeStrength": -260,
+        "linkDistance": 95,
+        "linkParticles": 2,
+        "nodeColors": {
+          "hub": "#f59e0b",
+          "project": "#60a5fa",
+          "area": "#34d399",
+          "reference": "#c084fc",
+          "person": "#f472b6"
+        },
+        "linkColors": {
+          "down": "#94a3b8",
+          "cite": "#c084fc",
+          "inspired-by": "#fb7185"
+        }
+      }
+    },
+    {
+      "name": "Reading",
+      "settings": {
+        "hiddenNodeTypes": [
+          "person"
+        ],
+        "hiddenLinkTags": [
+          "inspired-by"
+        ],
+        "chargeStrength": -180
+      }
+    }
+  ]
+}

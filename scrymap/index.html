@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrymap</title>
+  <link rel="icon" type="image/svg+xml" href="/scrymap/logo.svg" />
+  <script type="module" crossorigin src="/scrymap/assets/index-Dn0c4CrL.js"></script>
+  <link rel="stylesheet" crossorigin href="/scrymap/assets/index-DKeHtcbJ.css">
+</head>
+<body>
+  <div id="graph-container"></div>
+
+  <!-- Filter panel (left sidebar) -->
+  <div id="filter-panel">
+    <div class="panel-header">
+      <span>Controls</span>
+      <button id="filter-toggle" title="Collapse">‹</button>
+    </div>
+    <div id="filter-body">
+      <section>
+        <h5>Node Types</h5>
+        <div id="node-type-filters"></div>
+        <h5>Link Types</h5>
+        <div id="link-type-filters"></div>
+        <h5>Hidden Nodes</h5>
+        <p class="hidden-nodes-hint">Open a node, then tap Hide</p>
+        <div id="hidden-nodes-list"></div>
+        <button id="show-all-btn" class="btn-small">Show all</button>
+      </section>
+    </div>
+  </div>
+
+  <!-- Note viewer (right panel) -->
+  <div id="note-viewer" class="hidden">
+    <div id="viewer-resize-handle"></div>
+    <div class="viewer-header">
+      <button id="nav-back-btn" class="nav-btn" title="Go back (Alt+←)" disabled>‹</button>
+      <button id="nav-forward-btn" class="nav-btn" title="Go forward (Alt+→)" disabled>›</button>
+      <span id="viewer-title"></span>
+      <button id="hide-node-btn" title="Hide this node">Hide</button>
+      <button id="close-viewer" title="Close">×</button>
+    </div>
+    <div id="note-content"></div>
+  </div>
+
+  <!-- Tooltip -->
+  <div id="tooltip" class="hidden"></div>
+
+</body>
+</html>
