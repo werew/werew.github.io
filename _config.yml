@@ -114,6 +114,9 @@ paginate: 10
 # The base URL of your site
 baseurl: ""
 
+static_asset_dirs:
+  - pida
+
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
