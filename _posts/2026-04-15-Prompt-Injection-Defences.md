@@ -8,6 +8,13 @@ image:
     path: "prompt-inj-banner.png"
 ---
 
+> **Update: 12 May 2026**    
+> I have just released [Prompt Injection Defence Atlas](https://github.com/werew/Prompt-Injection-Defence-Atlas), a taxonomy of defences against prompt injection.  
+> It includes and summarizes most of the available literature to date.  
+> **You can explore the interactive graph [here](https://www.ret2libc.com/pida/).**
+{: .alert .alert-info}
+
+
 Prompt injection is a class of attacks where **an adversary embeds malicious instructions into content that an LLM will process**.
 As LLMs increasingly gain the ability to take complex autonomous actions on behalf of users, the consequences of a successful injection can be severe.
 
@@ -19,7 +26,7 @@ This post gives a brief overview of the different kinds of defences.
 > - This is a rapidly evolving area of research, as such I might have missed some approaches. If so, please let me know, I'd be happy to add them.
 > - Expect errors, please let me know if you spot any. Refer to the primary sources as the source of truth.
 > - This post doesn't discuss pros & cons of each technique, it just briefly lists them.
-{: .alert .alert-info}
+{: .alert .alert-light}
 
 Finally: this is not an exhaustive list. I plan to publish soon-ish a better mapping of these techniques and relevant sources.
 
