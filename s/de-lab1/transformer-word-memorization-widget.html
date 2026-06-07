@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GRU Word Memorization Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --panel: #f8fafc;
+        --border: #dbe4f0;
+        --text: #16202a;
+        --muted: #5f6b77;
+        --blue: #2d6cdf;
+        --blue-soft: #eef5ff;
+        --gold: #9a6700;
+        --gold-soft: #fff6df;
+        --green: #0f8a5f;
+        --green-soft: #e7faf2;
+        --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: transparent;
+        color: var(--text);
+      }
+
+      .widget {
+        width: min(100%, 1120px);
+        margin: 0 auto;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg);
+        box-shadow: var(--shadow);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .header h1 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+
+      .header p {
+        margin: 0;
+        max-width: 78ch;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .pill {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: #1f4e93;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(280px, 330px) minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--panel);
+      }
+
+      .side-panel,
+      .main-panel {
+        padding: 12px;
+        display: grid;
+        gap: 10px;
+        align-content: start;
+      }
+
+      .controls {
+        display: grid;
+        gap: 10px;
+      }
+
+      .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 4px;
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
+      .control small {
+        display: block;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        margin: 0;
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      button {
+        appearance: none;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--text);
+        padding: 8px 12px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.primary {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+
+      button.danger {
+        background: #d14343;
+        border-color: #d14343;
+        color: #fff;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .stat,
+      .card {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+      }
+
+      .stat strong,
+      .card .value {
+        display: block;
+        font-size: 1.02rem;
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      .stat span,
+      .card .sub,
+      .card .label {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .card .label {
+        margin-top: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        font-weight: 700;
+      }
+
+      .box {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        color: var(--muted);
+        font-size: 0.83rem;
+        line-height: 1.42;
+      }
+
+      .box strong {
+        color: var(--text);
+      }
+
+      .section-stack {
+        display: grid;
+        gap: 10px;
+      }
+
+      h2.section-title {
+        margin: 0 0 6px;
+        font-size: 0.92rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 8px 6px;
+        border-top: 1px solid var(--border);
+        font-size: 0.82rem;
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      tbody tr:first-child td {
+        border-top: 0;
+      }
+
+      .seen-pill {
+        display: inline-block;
+        min-width: 2.8rem;
+        padding: 3px 7px;
+        border-radius: 999px;
+        text-align: center;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .seen-pill.seen-1 {
+        background: #ffe6bf;
+        color: #8a4b00;
+      }
+
+      .seen-pill.seen-2 {
+        background: #fff0cf;
+        color: #9a6700;
+      }
+
+      .seen-pill.seen-3 {
+        background: #f8f1de;
+        color: #8a7650;
+      }
+
+      .seen-pill.seen-many {
+        background: #eef2f6;
+        color: #5f6b77;
+      }
+
+      @media (max-width: 980px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <div class="widget">
+      <div class="header">
+        <div>
+          <h1>Mini-GRU memorization</h1>
+          <p>This widget is a real 2-layers GRU trained in-browser. Each batch picks <em>batch-size</em> random entries for training.</p>
+        </div>
+        <div class="pill" id="running-label">Ready</div>
+      </div>
+
+      <div class="layout">
+        <aside class="panel side-panel">
+          <div class="controls">
+            <div class="control">
+              <label for="width-slider"><span>Hidden width</span><strong id="width-value">24</strong></label>
+              <input id="width-slider" type="range" min="2" max="32" step="2" value="24">
+              <small>More hidden width gives the GRU more room to store low-frequency details.</small>
+            </div>
+
+            <div class="control" style="display:none">
+              <label for="layers-slider"><span>GRU layers</span><strong id="layers-value">2</strong></label>
+              <input id="layers-slider" type="range" min="1" max="3" step="1" value="2">
+              <small>More stacked GRU layers make it easier to compose familiar fragments into full training words.</small>
+            </div>
+
+            <div class="control">
+              <label for="batch-size-slider"><span>Batch size</span><strong id="batch-size-value">4</strong></label>
+              <input id="batch-size-slider" type="range" min="1" max="100" step="1" value="4">
+              <small>Smaller batches make low-frequency late exposures matter more.</small>
+            </div>
+
+            <div class="control" style="display:none">
+              <label for="learning-rate-slider"><span>Learning rate</span><strong id="learning-rate-value">0.020</strong></label>
+              <input id="learning-rate-slider" type="range" min="5" max="50" step="1" value="20">
+              <small>Larger updates can make memorized words jump faster, but also make training less stable.</small>
+            </div>
+
+            <div class="control" style="display:none">
+              <label for="speed-slider"><span>Steps per tick</span><strong id="speed-value">6</strong></label>
+              <input id="speed-slider" type="range" min="1" max="20" step="1" value="6">
+              <small>Each step is one mini-batch update.</small>
+            </div>
+
+            <div class="buttons">
+              <button class="primary" id="toggle-training">Start</button>
+              <button id="step-training">Step</button>
+              <button id="reset-model">Reset</button>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong id="step-value">0</strong>
+              <span>batches</span>
+            </div>
+            <div class="stat">
+              <strong id="loss-value">-</strong>
+              <span>loss</span>
+            </div>
+          </div>
+
+        </aside>
+
+        <main class="panel main-panel">
+          <section class="box section-stack">
+            <div>
+              <h2 class="section-title">Top 20 (beam search)</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Word</th>
+                    <th>Probability</th>
+                    <th>Seen</th>
+                  </tr>
+                </thead>
+                <tbody id="top-words-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const DATASET_URL = "./transformer-word-dataset-synthetic.txt";
+
+
+      let ORDERED_WORDS = [];
+      let EXPOSURE_COUNTS = new Map();
+      let UNIQUE_TRAIN_WORDS = [];
+      let TRAINING_WORD_SET = new Set();
+
+      const PAD_TOKEN = "_";
+      const START_TOKEN = "^";
+      const END_TOKEN = "$";
+      const LETTERS = "abcdefghijklmnopqrstuvwxyz".split("");
+      const VOCAB = [PAD_TOKEN, START_TOKEN, END_TOKEN, ...LETTERS];
+      const VOCAB_SIZE = VOCAB.length;
+      const CHAR_TO_ID = Object.fromEntries(VOCAB.map((char, index) => [char, index]));
+      const ID_TO_CHAR = Object.fromEntries(VOCAB.map((char, index) => [index, char]));
+      const PAD_ID = CHAR_TO_ID[PAD_TOKEN];
+      const START_ID = CHAR_TO_ID[START_TOKEN];
+      const END_ID = CHAR_TO_ID[END_TOKEN];
+      let MAX_WORD_LENGTH = 0;
+      let MAX_SEQ_LEN = 0;
+      const MIN_COMPLETE_LENGTH = 3;
+      const WORD_SEARCH_BRANCHES = 5;
+      const WORD_SEARCH_BEAM_WIDTH = 48;
+      const PREFIXED_WORD_SEARCH_LIMIT = 10;
+
+      const runningLabel = document.getElementById("running-label");
+      const widthSlider = document.getElementById("width-slider");
+      const layersSlider = document.getElementById("layers-slider");
+      const batchSizeSlider = document.getElementById("batch-size-slider");
+      const learningRateSlider = document.getElementById("learning-rate-slider");
+      const speedSlider = document.getElementById("speed-slider");
+      const toggleTrainingButton = document.getElementById("toggle-training");
+      const stepTrainingButton = document.getElementById("step-training");
+      const resetModelButton = document.getElementById("reset-model");
+
+      const topWordsBody = document.getElementById("top-words-body");
+      const interactiveNodes = [
+        widthSlider,
+        layersSlider,
+        batchSizeSlider,
+        learningRateSlider,
+        speedSlider,
+        toggleTrainingButton,
+        stepTrainingButton,
+        resetModelButton,
+      ];
+
+      const valueNodes = {
+        width: document.getElementById("width-value"),
+        layers: document.getElementById("layers-value"),
+        batchSize: document.getElementById("batch-size-value"),
+        learningRate: document.getElementById("learning-rate-value"),
+        speed: document.getElementById("speed-value"),
+        step: document.getElementById("step-value"),
+        loss: document.getElementById("loss-value"),
+      };
+
+      let state = null;
+
+      function setControlsDisabled(disabled) {
+        for (const node of interactiveNodes) {
+          node.disabled = disabled;
+        }
+      }
+
+      async function loadWordList(url) {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`Could not load dataset from ${url} (${response.status})`);
+        }
+        const text = await response.text();
+        const words = text
+          .split(/\s+/)
+          .map((word) => word.trim().toLowerCase())
+          .filter(Boolean);
+        if (words.length === 0) {
+          throw new Error(`Dataset ${url} did not contain any words`);
+        }
+        return words;
+      }
+
+      function initializeDataset(words) {
+        ORDERED_WORDS = words.slice();
+        EXPOSURE_COUNTS = new Map();
+        for (const word of ORDERED_WORDS) {
+          EXPOSURE_COUNTS.set(word, (EXPOSURE_COUNTS.get(word) || 0) + 1);
+        }
+        UNIQUE_TRAIN_WORDS = Array.from(EXPOSURE_COUNTS.keys());
+        TRAINING_WORD_SET = new Set(UNIQUE_TRAIN_WORDS);
+        MAX_WORD_LENGTH = Math.max(...ORDERED_WORDS.map((word) => word.length));
+        MAX_SEQ_LEN = MAX_WORD_LENGTH + 1;
+        const batchSizeMax = Math.min(100, ORDERED_WORDS.length);
+        batchSizeSlider.max = `${batchSizeMax}`;
+        if (Number(batchSizeSlider.value) > batchSizeMax) {
+          batchSizeSlider.value = `${batchSizeMax}`;
+        }
+      }
+
+      function getEncounterCount(word) {
+        return state ? state.encounterCounts.get(word) || 0 : 0;
+      }
+
+      function formatProbability(value) {
+        if (!Number.isFinite(value) || value <= 0) {
+          return "0";
+        }
+        const scaled = value * 100;
+        if (scaled >= 0.1) {
+          return `${scaled.toFixed(2)}%`;
+        }
+        return `${scaled.toExponential(2)}%`;
+      }
+
+      function getSeenClass(count) {
+        if (count <= 0) {
+          return "";
+        }
+        if (count === 1) {
+          return "seen-1";
+        }
+        if (count === 2) {
+          return "seen-2";
+        }
+        if (count === 3) {
+          return "seen-3";
+        }
+        return "seen-many";
+      }
+
+      function getLearningRate() {
+        return Number(learningRateSlider.value) / 1000;
+      }
+
+      function updateControlLabels() {
+        valueNodes.width.textContent = widthSlider.value;
+        valueNodes.layers.textContent = layersSlider.value;
+        valueNodes.batchSize.textContent = batchSizeSlider.value;
+        valueNodes.learningRate.textContent = getLearningRate().toFixed(3);
+        valueNodes.speed.textContent = speedSlider.value;
+      }
+
+      function updateTrainingButton() {
+        const isRunning = Boolean(state?.running);
+        toggleTrainingButton.textContent = isRunning ? "Pause" : "Start";
+        toggleTrainingButton.classList.toggle("primary", !isRunning);
+        toggleTrainingButton.classList.toggle("danger", isRunning);
+      }
+
+      function encodeWord(word) {
+        const input = new Array(MAX_SEQ_LEN).fill(PAD_ID);
+        const target = new Array(MAX_SEQ_LEN).fill(PAD_ID);
+        const mask = new Array(MAX_SEQ_LEN).fill(0);
+        const inputChars = [START_TOKEN, ...word.split("")];
+        const targetChars = [...word.split(""), END_TOKEN];
+
+        for (let index = 0; index < inputChars.length; index += 1) {
+          input[index] = CHAR_TO_ID[inputChars[index]];
+          target[index] = CHAR_TO_ID[targetChars[index]];
+          mask[index] = 1;
+        }
+
+        return { input, target, mask };
+      }
+
+      function createTensorBundle(words) {
+        const encoded = words.map(encodeWord);
+        return {
+          inputs: tf.tensor2d(encoded.map((entry) => entry.input), [encoded.length, MAX_SEQ_LEN], "int32"),
+          targets: tf.tensor2d(encoded.map((entry) => entry.target), [encoded.length, MAX_SEQ_LEN], "int32"),
+          mask: tf.tensor2d(encoded.map((entry) => entry.mask), [encoded.length, MAX_SEQ_LEN], "float32"),
+        };
+      }
+
+      function disposeTensorBundle(bundle) {
+        if (!bundle) {
+          return;
+        }
+        bundle.inputs.dispose();
+        bundle.targets.dispose();
+        bundle.mask.dispose();
+      }
+
+      function disposeTrainingPlan(trainingPlan) {
+        if (!trainingPlan) {
+          return;
+        }
+        disposeTensorBundle(trainingPlan.fullData);
+      }
+
+      function createTrainingPlan(orderedWords) {
+        return {
+          orderedWords: orderedWords.slice(),
+          fullData: createTensorBundle(orderedWords),
+        };
+      }
+
+      function sampleRandomBatch(orderedWords, batchSize) {
+        const words = Array.from({ length: batchSize }, () => (
+          orderedWords[Math.floor(Math.random() * orderedWords.length)]
+        ));
+        return {
+          words,
+          tensors: createTensorBundle(words),
+        };
+      }
+
+      class TinyGRULanguageModel {
+        constructor(config) {
+          this.config = config;
+          this.variables = [];
+          this.optimizer = tf.train.adam(config.learningRate);
+          this.tokenEmbedding = this.addVariable([VOCAB_SIZE, config.dModel], 0.08);
+          this.layers = Array.from({ length: config.layerCount }, () => this.createLayer(config.dModel));
+          this.outputW = this.addVariable([config.dModel, VOCAB_SIZE], 0.08);
+          this.outputB = this.addVector(VOCAB_SIZE, 0);
+        }
+
+        addVariable(shape, stddev) {
+          const variable = tf.variable(tf.randomNormal(shape, 0, stddev));
+          this.variables.push(variable);
+          return variable;
+        }
+
+        addVector(size, fillValue) {
+          const variable = tf.variable(tf.fill([size], fillValue));
+          this.variables.push(variable);
+          return variable;
+        }
+
+        createLayer(dModel) {
+          return {
+            wz: this.addVariable([dModel, dModel], 0.08),
+            uz: this.addVariable([dModel, dModel], 0.08),
+            bz: this.addVector(dModel, 0),
+            wr: this.addVariable([dModel, dModel], 0.08),
+            ur: this.addVariable([dModel, dModel], 0.08),
+            br: this.addVector(dModel, 0),
+            wh: this.addVariable([dModel, dModel], 0.08),
+            uh: this.addVariable([dModel, dModel], 0.08),
+            bh: this.addVector(dModel, 0),
+          };
+        }
+
+        linear(x, weight, bias = null) {
+          const [batchSize, sequenceLength, inputWidth] = x.shape;
+          const flat = x.reshape([batchSize * sequenceLength, inputWidth]);
+          let projected = tf.matMul(flat, weight);
+          if (bias) {
+            projected = projected.add(bias);
+          }
+          return projected.reshape([batchSize, sequenceLength, weight.shape[1]]);
+        }
+
+        gruStep(x, hidden, layer) {
+          const updateGate = tf.sigmoid(x.matMul(layer.wz).add(hidden.matMul(layer.uz)).add(layer.bz));
+          const resetGate = tf.sigmoid(x.matMul(layer.wr).add(hidden.matMul(layer.ur)).add(layer.br));
+          const candidate = tf.tanh(
+            x.matMul(layer.wh)
+              .add(hidden.mul(resetGate).matMul(layer.uh))
+              .add(layer.bh)
+          );
+          return updateGate.mul(hidden).add(tf.sub(1, updateGate).mul(candidate));
+        }
+
+        forward(tokenBatch) {
+          return tf.tidy(() => {
+            const embeddings = tf.gather(this.tokenEmbedding, tokenBatch);
+            const timeSteps = tf.unstack(embeddings, 1);
+            let hiddenStates = this.layers.map(() => tf.zeros([tokenBatch.shape[0], this.config.dModel]));
+            const outputs = [];
+
+            for (const stepInput of timeSteps) {
+              let layerInput = stepInput;
+              hiddenStates = hiddenStates.map((hiddenState, layerIndex) => {
+                const nextHidden = this.gruStep(layerInput, hiddenState, this.layers[layerIndex]);
+                layerInput = nextHidden;
+                return nextHidden;
+              });
+              outputs.push(layerInput);
+            }
+
+            const stackedOutputs = tf.stack(outputs, 1);
+            return this.linear(stackedOutputs, this.outputW, this.outputB);
+          });
+        }
+
+        loss(data) {
+          return tf.tidy(() => {
+            const logits = this.forward(data.inputs);
+            const labels = tf.oneHot(data.targets, VOCAB_SIZE);
+            const logProbs = tf.logSoftmax(logits, -1);
+            const perTokenLoss = labels.mul(logProbs).sum(-1).neg();
+            const maskedLoss = perTokenLoss.mul(data.mask);
+            return maskedLoss.sum().div(data.mask.sum());
+          });
+        }
+
+        trainStep(data) {
+          const { value, grads } = tf.variableGrads(() => this.loss(data), this.variables);
+          const lossValue = value.dataSync()[0];
+          const gradList = this.variables.map((variable) => grads[variable.name]);
+
+          if (!Number.isFinite(lossValue)) {
+            value.dispose();
+            for (const gradient of gradList) {
+              gradient.dispose();
+            }
+            return NaN;
+          }
+
+          const squaredNorm = tf.addN(gradList.map((gradient) => gradient.square().sum()));
+          const globalNorm = squaredNorm.sqrt();
+          const globalNormValue = globalNorm.dataSync()[0];
+
+          if (!Number.isFinite(globalNormValue)) {
+            value.dispose();
+            squaredNorm.dispose();
+            globalNorm.dispose();
+            for (const gradient of gradList) {
+              gradient.dispose();
+            }
+            return NaN;
+          }
+
+          const clipScale = Math.min(1, this.config.maxGradNorm / (globalNormValue + 1e-6));
+          const clippedGradList = gradList.map((gradient) => (
+            clipScale < 1 ? gradient.mul(clipScale) : gradient
+          ));
+          const clippedGrads = {};
+          this.variables.forEach((variable, index) => {
+            clippedGrads[variable.name] = clippedGradList[index];
+          });
+          this.optimizer.applyGradients(clippedGrads);
+
+          value.dispose();
+          squaredNorm.dispose();
+          globalNorm.dispose();
+          for (const gradient of gradList) {
+            gradient.dispose();
+          }
+          for (let index = 0; index < clippedGradList.length; index += 1) {
+            if (clippedGradList[index] !== gradList[index]) {
+              clippedGradList[index].dispose();
+            }
+          }
+          return lossValue;
+        }
+
+        setLearningRate(learningRate) {
+          this.config.learningRate = learningRate;
+          if (typeof this.optimizer.dispose === "function") {
+            this.optimizer.dispose();
+          }
+          this.optimizer = tf.train.adam(learningRate);
+        }
+
+        evaluate(data) {
+          return tf.tidy(() => {
+            const logits = this.forward(data.inputs);
+            const labels = tf.oneHot(data.targets, VOCAB_SIZE);
+            const logProbs = tf.logSoftmax(logits, -1);
+            const perTokenLoss = labels.mul(logProbs).sum(-1).neg();
+            const maskedLoss = perTokenLoss.mul(data.mask).sum().div(data.mask.sum());
+            return {
+              loss: maskedLoss.dataSync()[0],
+            };
+          });
+        }
+
+        dispose() {
+          for (const variable of this.variables) {
+            variable.dispose();
+          }
+        }
+      }
+
+      function disposeState(currentState) {
+        if (!currentState) {
+          return;
+        }
+        disposeTrainingPlan(currentState.trainingPlan);
+        currentState.model.dispose();
+      }
+
+      function nextLetterDistribution(prefix) {
+        return tf.tidy(() => {
+          const tokenIds = [START_ID, ...prefix.split("").map((char) => CHAR_TO_ID[char])].slice(0, MAX_SEQ_LEN);
+          const padded = new Array(MAX_SEQ_LEN).fill(PAD_ID);
+          for (let index = 0; index < tokenIds.length; index += 1) {
+            padded[index] = tokenIds[index];
+          }
+
+          const input = tf.tensor2d([padded], [1, MAX_SEQ_LEN], "int32");
+          const logits = state.model.forward(input);
+          const positionIndex = tokenIds.length - 1;
+          const stepLogits = logits.slice([0, positionIndex, 0], [1, 1, VOCAB_SIZE]).reshape([VOCAB_SIZE]);
+          const probabilities = tf.softmax(stepLogits);
+          return Array.from(probabilities.dataSync());
+        });
+      }
+
+      function topCandidates(probabilities, branchFactor, prefixLength) {
+        const entries = [];
+        for (let tokenId = 0; tokenId < probabilities.length; tokenId += 1) {
+          if (tokenId === PAD_ID || tokenId === START_ID) {
+            continue;
+          }
+          if (tokenId === END_ID && prefixLength < MIN_COMPLETE_LENGTH) {
+            continue;
+          }
+          entries.push({
+            tokenId,
+            char: ID_TO_CHAR[tokenId],
+            probability: probabilities[tokenId],
+            isEnd: tokenId === END_ID,
+          });
+        }
+        entries.sort((left, right) => right.probability - left.probability);
+        return entries.slice(0, branchFactor);
+      }
+
+      function scorePrefix(prefix) {
+        let currentPrefix = "";
+        let probability = 1;
+
+        for (const char of prefix) {
+          const tokenId = CHAR_TO_ID[char];
+          if (tokenId === undefined || tokenId === PAD_ID || tokenId === START_ID || tokenId === END_ID) {
+            return 0;
+          }
+          const probabilities = nextLetterDistribution(currentPrefix);
+          probability *= probabilities[tokenId] || 0;
+          if (!Number.isFinite(probability) || probability <= 0) {
+            return 0;
+          }
+          currentPrefix += char;
+        }
+
+        return probability;
+      }
+
+      function rankWords(startingPrefix = "") {
+        const normalizedPrefix = startingPrefix.trim().toLowerCase();
+        const initialProbability = normalizedPrefix ? scorePrefix(normalizedPrefix) : 1;
+        if (initialProbability <= 0) {
+          return [];
+        }
+
+        let active = [{ prefix: normalizedPrefix, probability: initialProbability }];
+        const completed = [];
+
+        for (let depth = normalizedPrefix.length; depth <= MAX_WORD_LENGTH; depth += 1) {
+          const nextActive = [];
+
+          for (const beam of active) {
+            const probabilities = nextLetterDistribution(beam.prefix);
+            const candidates = topCandidates(probabilities, WORD_SEARCH_BRANCHES, beam.prefix.length);
+
+            for (const candidate of candidates) {
+              const candidateProbability = beam.probability * candidate.probability;
+              if (candidate.isEnd) {
+                if (beam.prefix.length >= MIN_COMPLETE_LENGTH) {
+                  const count = EXPOSURE_COUNTS.get(beam.prefix) || 0;
+                  const encounteredCount = getEncounterCount(beam.prefix);
+                  completed.push({
+                    word: beam.prefix,
+                    probability: candidateProbability,
+                    count,
+                    encounteredCount,
+                    seen: count > 0,
+                  });
+                }
+                continue;
+              }
+
+              nextActive.push({
+                prefix: beam.prefix + candidate.char,
+                probability: candidateProbability,
+              });
+            }
+          }
+
+          nextActive.sort((left, right) => right.probability - left.probability);
+          active = nextActive.slice(0, WORD_SEARCH_BEAM_WIDTH);
+          if (active.length === 0) {
+            break;
+          }
+        }
+
+        const bestByWord = new Map();
+        for (const entry of completed) {
+          const existing = bestByWord.get(entry.word);
+          if (!existing || entry.probability > existing.probability) {
+            bestByWord.set(entry.word, entry);
+          }
+        }
+        return Array.from(bestByWord.values()).sort((left, right) => right.probability - left.probability);
+      }
+
+      function rankGeneralWords() {
+        return rankWords();
+      }
+
+      function sampleWord() {
+        let prefix = "";
+        for (let index = 0; index <= MAX_WORD_LENGTH; index += 1) {
+          const probabilities = nextLetterDistribution(prefix);
+          const options = [];
+          let total = 0;
+
+          for (let tokenId = 0; tokenId < probabilities.length; tokenId += 1) {
+            if (tokenId === PAD_ID || tokenId === START_ID) {
+              continue;
+            }
+            if (tokenId === END_ID && prefix.length < MIN_COMPLETE_LENGTH) {
+              continue;
+            }
+            const weight = probabilities[tokenId];
+            if (weight <= 0) {
+              continue;
+            }
+            options.push({ tokenId, weight });
+            total += weight;
+          }
+
+          let threshold = Math.random() * total;
+          let chosen = options[options.length - 1];
+          for (const option of options) {
+            threshold -= option.weight;
+            if (threshold <= 0) {
+              chosen = option;
+              break;
+            }
+          }
+
+          if (chosen.tokenId === END_ID) {
+            break;
+          }
+          prefix += ID_TO_CHAR[chosen.tokenId];
+          if (prefix.length >= MAX_WORD_LENGTH) {
+            break;
+          }
+        }
+        return prefix;
+      }
+
+      function renderWordTable(bodyNode, rankedWords, { limit = 20, emptyLabel = "No matching words yet." } = {}) {
+        if (rankedWords.length === 0) {
+          bodyNode.innerHTML = `<tr><td colspan="4">${emptyLabel}</td></tr>`;
+          return;
+        }
+
+        bodyNode.innerHTML = rankedWords.slice(0, limit)
+          .map((entry, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td><strong>${entry.word}</strong></td>
+              <td>${formatProbability(entry.probability)}</td>
+              <td>${entry.encounteredCount > 0 ? `<span class="seen-pill ${getSeenClass(entry.encounteredCount)}">${entry.encounteredCount}x</span>` : "0x"}</td>
+            </tr>
+          `)
+          .join("");
+      }
+
+      function renderTopWords(rankedWords) {
+        renderWordTable(topWordsBody, rankedWords);
+      }
+
+      function clearDerivedOutputs() {
+        valueNodes.step.textContent = "0";
+        valueNodes.loss.textContent = "-";
+        topWordsBody.innerHTML = "";
+      }
+
+      function updateProgressStats() {
+        valueNodes.step.textContent = state ? `${state.step}` : "0";
+      }
+
+      async function applyInPlaceSettingChange(applyChange) {
+        if (!state) {
+          return;
+        }
+        const currentState = state;
+        const wasRunning = currentState.running;
+        const previousLabel = runningLabel.textContent;
+
+        if (wasRunning) {
+          currentState.running = false;
+          runningLabel.textContent = "Updating";
+          updateTrainingButton();
+        }
+
+        await currentState.lastStep;
+        if (currentState !== state) {
+          return;
+        }
+
+        applyChange(currentState);
+
+        if (wasRunning) {
+          currentState.running = true;
+          runningLabel.textContent = "Training";
+          updateTrainingButton();
+          runTrainingLoop();
+          return;
+        }
+
+        runningLabel.textContent = previousLabel;
+        updateTrainingButton();
+      }
+
+      async function rebuildModel({ refreshOutputs = false } = {}) {
+        if (ORDERED_WORDS.length === 0) {
+          return;
+        }
+        const previousState = state;
+        if (previousState) {
+          previousState.running = false;
+          updateTrainingButton();
+          runningLabel.textContent = "Resetting";
+          await previousState.lastStep;
+          disposeState(previousState);
+        }
+
+        state = {
+          model: new TinyGRULanguageModel({
+            dModel: Number(widthSlider.value),
+            layerCount: Number(layersSlider.value),
+            learningRate: getLearningRate(),
+            maxGradNorm: 1,
+          }),
+          trainingPlan: createTrainingPlan(ORDERED_WORDS),
+          batchSize: Number(batchSizeSlider.value),
+          encounterCounts: new Map(UNIQUE_TRAIN_WORDS.map((word) => [word, 0])),
+          step: 0,
+          lastLoss: null,
+          running: false,
+          busy: false,
+          lastStep: Promise.resolve(),
+          lastRenderTime: 0,
+        };
+
+        runningLabel.textContent = "Ready";
+        updateTrainingButton();
+        if (refreshOutputs) {
+          await refreshView();
+          return;
+        }
+        clearDerivedOutputs();
+      }
+
+      async function refreshView() {
+        if (state) {
+          state.lastRenderTime = performance.now();
+        }
+        const metrics = state.model.evaluate(state.trainingPlan.fullData);
+        const rankedWords = rankGeneralWords();
+        const rankedAWords = rankWords("zy");
+
+        updateProgressStats();
+        valueNodes.loss.textContent = metrics.loss.toFixed(3);
+
+        renderTopWords(rankedWords);
+      }
+
+      async function trainChunk() {
+        if (!state || state.busy) {
+          return;
+        }
+
+        const currentState = state;
+        const steps = Number(speedSlider.value);
+        currentState.busy = true;
+
+        try {
+          currentState.lastStep = (async () => {
+            let lastLoss = 0;
+            const MICRO_BATCH_SIZE = 1; // train on micro-batches so pause can take effect quickly
+
+            for (let index = 0; index < steps; index += 1) {
+              if (!currentState.running) {
+                break;
+              }
+
+              const batch = sampleRandomBatch(currentState.trainingPlan.orderedWords, currentState.batchSize);
+
+              // Process each sample in the batch as a micro-batch so it can be interrupted between samples
+              for (let i = 0; i < batch.words.length; i += MICRO_BATCH_SIZE) {
+                if (!currentState.running) {
+                  break;
+                }
+
+                const sliceWords = batch.words.slice(i, i + MICRO_BATCH_SIZE);
+                const tensors = createTensorBundle(sliceWords);
+
+                lastLoss = currentState.model.trainStep(tensors);
+
+                if (!Number.isFinite(lastLoss)) {
+                  disposeTensorBundle(tensors);
+                  disposeTensorBundle(batch.tensors); // in case
+                  currentState.running = false;
+                  updateTrainingButton();
+                  runningLabel.textContent = "Diverged";
+                  break;
+                }
+
+                for (const word of sliceWords) {
+                  currentState.encounterCounts.set(word, (currentState.encounterCounts.get(word) || 0) + 1);
+                }
+
+                currentState.step += sliceWords.length;
+                disposeTensorBundle(tensors);
+
+                // allow UI and pause handling to run
+                await tf.nextFrame();
+              }
+
+              disposeTensorBundle(batch.tensors); // ensure any full-batch tensors cleaned (sampleRandomBatch creates its own)
+
+              if (!currentState.running) {
+                break;
+              }
+
+            }
+            currentState.lastLoss = lastLoss;
+          })();
+
+          await currentState.lastStep;
+        } finally {
+          currentState.busy = false;
+        }
+
+        if (currentState !== state) {
+          return;
+        }
+
+        if (currentState.running && performance.now() - currentState.lastRenderTime < 160) {
+          return;
+        }
+
+        await refreshView();
+      }
+
+      async function runTrainingLoop() {
+        while (state && state.running) {
+          await trainChunk();
+          await tf.nextFrame();
+        }
+      }
+
+      async function toggleTraining() {
+        if (!state) {
+          return;
+        }
+        state.running = !state.running;
+        updateTrainingButton();
+        runningLabel.textContent = state.running ? "Training" : "Paused";
+        if (state.running) {
+          runTrainingLoop();
+        }
+      }
+
+      async function stepTraining() {
+        if (!state || state.running) {
+          return;
+        }
+        runningLabel.textContent = "Stepping";
+        await trainChunk();
+        runningLabel.textContent = "Ready";
+      }
+
+      function handleModelShapeInput() {
+        updateControlLabels();
+      }
+
+      async function handleModelShapeChange() {
+        await rebuildModel();
+      }
+
+      async function handleBatchSizeChange() {
+        await applyInPlaceSettingChange((currentState) => {
+          currentState.batchSize = Number(batchSizeSlider.value);
+          updateProgressStats();
+        });
+      }
+
+      async function handleLearningRateChange() {
+        await applyInPlaceSettingChange((currentState) => {
+          currentState.model.setLearningRate(getLearningRate());
+        });
+      }
+
+      function handleSpeedChange() {
+        updateControlLabels();
+      }
+
+      widthSlider.addEventListener("input", handleModelShapeInput);
+      layersSlider.addEventListener("input", handleModelShapeInput);
+      batchSizeSlider.addEventListener("input", handleModelShapeInput);
+      learningRateSlider.addEventListener("input", handleModelShapeInput);
+      widthSlider.addEventListener("change", handleModelShapeChange);
+      layersSlider.addEventListener("change", handleModelShapeChange);
+      batchSizeSlider.addEventListener("change", handleBatchSizeChange);
+      learningRateSlider.addEventListener("change", handleLearningRateChange);
+      speedSlider.addEventListener("input", handleSpeedChange);
+      toggleTrainingButton.addEventListener("click", toggleTraining);
+      stepTrainingButton.addEventListener("click", stepTraining);
+      resetModelButton.addEventListener("click", rebuildModel);
+
+      async function initializeWidget() {
+        try {
+          setControlsDisabled(true);
+          runningLabel.textContent = "Loading";
+          const words = await loadWordList(DATASET_URL);
+          initializeDataset(words);
+          updateControlLabels();
+          await rebuildModel();
+          setControlsDisabled(false);
+          runningLabel.textContent = "Ready";
+        } catch (error) {
+          console.error(error);
+          runningLabel.textContent = "Load error";
+          topWordsBody.innerHTML = `<tr><td colspan="4"><strong>${error.message}</strong></td></tr>`;
+        }
+      }
+
+      initializeWidget();
+    </script>
+  </body>
+</html>

@@ -116,6 +116,7 @@ baseurl: ""
 
 static_asset_dirs:
   - pida
+  - s
 
 # ------------ The following options are not recommended to be modified ------------------
 
