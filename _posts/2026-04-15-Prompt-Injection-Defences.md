@@ -1,6 +1,6 @@
 ---
 title: "The Prompt Injection Defence Landscape"
-description: "A survey of the prompt injection defence landscape for LLM applications: alignment and fine-tuning, architectural isolation, information flow control and detection, plus the Prompt Injection Defence Atlas taxonomy."
+description: "A survey of prompt injection defences for LLM applications, and the Prompt Injection Defence Atlas: alignment, isolation, information flow control, detection."
 date: 2026-04-15
 categories: ['AI Security']
 tags: ['AI', 'Prompt Injection']

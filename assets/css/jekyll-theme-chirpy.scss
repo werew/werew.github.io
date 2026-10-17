@@ -1,0 +1,22 @@
+---
+---
+
+@import 'main';
+
+/* append your custom style below */
+
+/*
+  Home page post cards: show the post description in full.
+
+  The theme clamps the card text to two lines (`%text-clip` in
+  _sass/addon/module.scss). Descriptions are written to be short and
+  self-contained, so they are shown whole instead and the card grows to fit.
+  Card heights therefore vary between rows, which is the intended trade-off.
+  The card *title* keeps its own clamp. See _layouts/home.html.
+*/
+#post-list .card .card-body .card-text.content p {
+  display: block;
+  overflow: visible;
+  text-overflow: unset;
+  -webkit-line-clamp: unset;
+}

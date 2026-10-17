@@ -1,6 +1,6 @@
 ---
 title: "Using Hermes’s Quicksort to run Doom: A tale of JavaScript exploitation"
-description: "How a bug in Hermes's Quicksort implementation can be exploited to run arbitrary code, and Doom, inside the JavaScript engine behind React Native, plus why JS engines are such attractive targets."
+description: "How a bug in Hermes's Quicksort can be exploited to run arbitrary code, and Doom, inside the JavaScript engine behind React Native."
 date: 2022-07-20
 categories: [Exploitation]
 tags: ['JS', 'Hermes']
