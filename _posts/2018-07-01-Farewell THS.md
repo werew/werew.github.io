@@ -1,5 +1,6 @@
 ---
 title: Farewell THS
+description: "A short farewell to the Twente Hacking Squad, the academic CTF team of the University of Twente, and some thoughts on playing CTFs as part of a team."
 date: 2018-07-01
 categories: [Miscellaneous]
 tags: ['CTF']

@@ -1,5 +1,6 @@
 ---
 title: Create your virtual network with QEMU
+description: "How to build a virtual network with QEMU using TAP interfaces, bridges and host routing, so you can experiment with networking and network attacks without physical hardware."
 date: 2015-12-31
 categories: [Network Security]
 tags: ['QEMU']

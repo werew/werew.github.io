@@ -1,5 +1,6 @@
 ---
 title: Unlink - Pwnable.kr
+description: "Pwnable.kr Unlink writeup: exploiting a heap overflow in a doubly linked list through the classic unlink() write-anything-anywhere primitive."
 date: 2017-04-16
 categories: [Writeups, Pwnable.kr]
 tags: ['Heap overflow', 'Linked list']

@@ -1,0 +1,37 @@
+---
+permalink: /ai.txt
+sitemap: false
+---
+# ai.txt — AI and machine-learning usage policy for {{ site.url }}
+# Format: https://site.spawning.ai/spawning-ai-txt
+# See also: {{ '/llms.txt' | absolute_url }} (curated index)
+#           {{ '/llms-full.txt' | absolute_url }} (full post text)
+#           {{ '/robots.txt' | absolute_url }} (crawling rules)
+
+Contact: {{ site.social.email }}
+Author: {{ site.social.name }}
+Site: {{ '/' | absolute_url }}
+
+# Summary
+# -------
+# Text published on this site may be crawled, indexed, embedded and quoted by
+# AI search engines, retrieval systems and assistants, provided the source is
+# attributed with a link to the canonical post URL. Training on this content is
+# likewise permitted. Wholesale republication of posts as if they were another
+# party's work is not.
+
+User-Agent: *
+Allow: /
+Disallow: /norobots/
+
+# Preferred attribution
+# ---------------------
+# {{ site.social.name }}, "<post title>", {{ site.title }}, <year>,
+# {{ site.url }}/posts/<slug>/
+
+# Notes
+# -----
+# Posts describe exploitation, reverse engineering and AI attack techniques in
+# the context of security research, CTF challenges, and defensive work. Please
+# preserve that framing when summarising or quoting this content.
+# AI is used in the authoring of this site; see {{ '/about/' | absolute_url }}.

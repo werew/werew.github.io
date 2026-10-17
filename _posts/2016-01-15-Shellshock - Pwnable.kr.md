@@ -1,5 +1,6 @@
 ---
 title: Shellshock - Pwnable.kr
+description: "Pwnable.kr Shellshock writeup: abusing the CVE-2014-6271 Bash environment-variable parsing bug to execute arbitrary commands and read the flag."
 date: 2016-01-15
 categories: [Writeups, Pwnable.kr]
 tags: ['Bash']

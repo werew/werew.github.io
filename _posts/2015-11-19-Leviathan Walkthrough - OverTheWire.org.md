@@ -1,5 +1,6 @@
 ---
 title: Leviathan Walkthrough - OverTheWire.org
+description: "Walkthrough of all seven levels of the Leviathan wargame on OverTheWire, covering basic Linux privilege escalation, file inspection, ltrace and setuid binary tricks."
 date: 2015-11-19
 categories: [Writeups, OverTheWire.org]
 image:

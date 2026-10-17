@@ -1,5 +1,6 @@
 ---
 title: UAF - Pwnable.kr
+description: "Pwnable.kr UAF writeup: exploiting a C++ use-after-free to take over a vtable pointer and redirect a virtual call to the function that prints the flag."
 date: 2016-09-06
 categories: [Writeups, Pwnable.kr]
 tags: ['UAF']

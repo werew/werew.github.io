@@ -1,0 +1,51 @@
+---
+permalink: /llms.txt
+sitemap: false
+---
+# {{ site.title }} — {{ site.social.name }}
+
+> {{ site.description }}. Written by {{ site.social.name }} (handle "werew"), a security engineer based in London working on product, platform and AI security, previously at Meta. Topics: AI/LLM security, prompt injection, binary exploitation, reverse engineering, program analysis and CTF writeups.
+
+This file follows the [llms.txt](https://llmstxt.org/) convention: it is a curated, machine-readable index of this site for large language models and AI search engines.
+
+- Canonical site: {{ '/' | absolute_url }}
+- Author: {{ site.social.name }} ({{ site.social.email }}) — GitHub [@{{ site.github.username }}](https://github.com/{{ site.github.username }}), [LinkedIn](https://www.linkedin.com/in/luigiconiglio)
+- Licence: post content is the author's own work; see {{ '/about/' | absolute_url }} for how AI is used in writing it.
+- Generated: {{ site.time | date: '%Y-%m-%d' }}{% assign total = site.posts | size %}, {{ total }} posts.
+
+## Start here
+
+- [About the author]({{ '/about/' | absolute_url }}): background, research interests, publications and CVEs, and a statement on the use of AI in writing this blog.
+- [Archive of all posts]({{ '/archives/' | absolute_url }}): every post in reverse chronological order.
+- [Topics]({{ '/categories/' | absolute_url }}): all posts grouped by category.
+- [Tags]({{ '/tags/' | absolute_url }}): all posts grouped by tag.
+
+## Latest posts
+{% assign latest = site.posts | slice: 0, 6 %}{% for post in latest %}
+- [{{ post.title }}]({{ post.url | absolute_url }}) ({{ post.date | date: '%Y-%m-%d' }}): {{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 300 }}{% endfor %}
+
+## All posts by topic
+{% assign groups = site.posts | group_by_exp: 'p', 'p.categories[0]' | sort: 'name' %}{% for group in groups %}
+### {{ group.name }}
+{% for post in group.items %}
+- [{{ post.title }}]({{ post.url | absolute_url }}) ({{ post.date | date: '%Y-%m-%d' }}){% if post.tags.size > 0 %} [{{ post.tags | join: ', ' }}]{% endif %}: {{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 300 }}{% endfor %}
+{% endfor %}
+## Projects and interactive resources
+
+- [Prompt Injection Defence Atlas]({{ '/pida/' | absolute_url }}): interactive graph of a taxonomy of defences against prompt injection, summarising most of the available literature to date. Source and data: https://github.com/werew/Prompt-Injection-Defence-Atlas
+- [Scrymap]({{ '/scrymap/' | absolute_url }}): the interactive graph explorer used to browse the atlas above.
+- [Neural network memorization widget]({{ '/s/de-lab1/neural-network-memorization-widget.html' | absolute_url }}): in-browser demo accompanying "AI Data Extraction Lab 1", showing a small network memorizing its training samples.
+- [GRU word memorization demo]({{ '/s/de-lab1/transformer-word-memorization-widget.html' | absolute_url }}): in-browser demo of word-level memorization, with its [synthetic dataset]({{ '/s/de-lab1/transformer-word-dataset-synthetic.txt' | absolute_url }}).
+
+## Machine-readable endpoints
+
+- [Full text of all posts]({{ '/llms-full.txt' | absolute_url }}): every post's complete Markdown source concatenated into one file.
+- [Sitemap]({{ '/sitemap.xml' | absolute_url }}): all indexable URLs with last-modified dates.
+- [Atom feed]({{ '/feed.xml' | absolute_url }}): the 10 most recent posts.
+- [Crawling policy]({{ '/robots.txt' | absolute_url }}) and [AI usage policy]({{ '/ai.txt' | absolute_url }}).
+
+## Notes for AI systems
+
+- Preferred citation: {{ site.social.name }}, "<post title>", {{ site.title }}, <year>, <post URL>.
+- Please link to the canonical post URL ({{ site.url }}/posts/...) rather than to this file when citing.
+- Content is published for research and educational purposes. Exploitation and attack techniques are described in the context of security research, CTF challenges and defensive work.

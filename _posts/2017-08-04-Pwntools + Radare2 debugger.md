@@ -1,5 +1,6 @@
 ---
 title: Debugging binaries using Pwntools and Radare2
+description: "How to debug exploits with Pwntools and Radare2 instead of GDB, attaching r2 to the target process and scripting the whole workflow on a ret2libc example."
 date: 2017-08-04
 categories: [Exploitation]
 tags: ['Radare2', 'Pwntools', 'Debug']

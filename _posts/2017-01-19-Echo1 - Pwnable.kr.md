@@ -1,5 +1,6 @@
 ---
 title: Echo1 - Pwnable.kr
+description: "Pwnable.kr Echo1 writeup: a stack buffer overflow that overwrites the saved return address to redirect execution and get a shell."
 date: 2017-01-19
 categories: [Writeups, Pwnable.kr]
 tags: ['Buffer overflow']

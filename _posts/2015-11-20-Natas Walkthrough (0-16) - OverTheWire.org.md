@@ -1,5 +1,6 @@
 ---
 title: Natas Walkthrough (0-16) - OverTheWire.org
+description: "Walkthrough of levels 0 to 16 of the Natas web security wargame on OverTheWire, covering source disclosure, path traversal, command injection, file inclusion and SQL injection."
 date: 2015-11-20
 categories: [Writeups, OverTheWire.org]
 image:

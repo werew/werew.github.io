@@ -1,5 +1,6 @@
 ---
 title: Cmd2 - Pwnable.kr
+description: "Pwnable.kr Cmd2 writeup: escaping a restricted system() call with a wiped environment and a filtered argument by building a shell command out of the characters left."
 date: 2016-01-17
 categories: [Writeups, Pwnable.kr]
 tags: ['Bash', 'Escape restricted env']

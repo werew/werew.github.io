@@ -1,5 +1,6 @@
 ---
 title: Scanning for open SMTP relays with nmap
+description: "Using nmap's smtp-open-relay NSE script to scan country-based IP ranges for open SMTP relays, including how to narrow the scan and interpret the results."
 date: 2017-05-30
 categories: [Network Security]
 tags: ['SMTP', 'Nmap']

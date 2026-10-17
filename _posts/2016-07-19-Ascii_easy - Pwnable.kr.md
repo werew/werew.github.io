@@ -1,5 +1,6 @@
 ---
 title: Ascii_easy - Pwnable.kr
+description: "Pwnable.kr Ascii_easy writeup: a ret2libc exploit built entirely out of ASCII-printable addresses, working around ASLR and an ASCII-armored address space."
 date: 2016-07-19
 categories: [Writeups, Pwnable.kr]
 tags: ['Ret2libc', 'Buffer overflow', 'ASLR', 'Ascii armor']

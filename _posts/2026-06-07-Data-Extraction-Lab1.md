@@ -1,5 +1,6 @@
 ---
 title: "AI Data Extraction Lab 1: When Models Remember Too Much"
+description: "The first lab in a series on data extraction attacks: how and when neural networks memorize their training data, with interactive widgets demonstrating memorization in a small transformer."
 date: 2026-06-07
 categories: ['AI Security']
 tags: ['AI', 'Data Extraction', 'Privacy']

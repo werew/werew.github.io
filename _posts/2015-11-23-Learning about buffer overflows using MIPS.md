@@ -1,5 +1,6 @@
 ---
 title: Learning the basics of buffer overflows using MIPS
+description: "A hands-on introduction to stack buffer overflows on the MIPS architecture, and how its RISC calling convention and register-based returns change classic stack smashing."
 date: 2015-11-23
 categories: [Exploitation]
 tags: ['Buffer overflow', 'MIPS']

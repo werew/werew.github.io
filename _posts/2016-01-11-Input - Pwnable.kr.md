@@ -1,5 +1,6 @@
 ---
 title: Input - Pwnable.kr
+description: "Pwnable.kr Input writeup: feeding a program the right argv, environment variables, stdio pipes, file contents, TCP socket and UNIX socket to clear every stage."
 date: 2016-01-11
 categories: [Writeups, Pwnable.kr]
 tags: ['IO']

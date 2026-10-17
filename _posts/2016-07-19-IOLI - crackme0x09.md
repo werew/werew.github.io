@@ -1,5 +1,6 @@
 ---
 title: IOLI - crackme0x09
+description: "A Radare2 walkthrough of crackme0x09 from the IOLI suite: static analysis of main, reversing the serial check and recovering a valid password."
 date: 2016-07-19
 categories: [Writeups]
 tags: ['IOLI']

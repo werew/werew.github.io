@@ -46,6 +46,10 @@ social:
 
 google_site_verification: # fill in to your verification string
 
+# Used by jekyll-seo-tag to emit author metadata (schema.org Person).
+# Note: Chirpy's byline uses `site.social.name`, so this does not affect the layout.
+author: Luigi Coniglio
+
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
 
@@ -184,6 +188,7 @@ exclude:
   - docs
   - tools
   - README.md
+  - CLAUDE.md
   - LICENSE
   - rollup.config.js
   - package*.json

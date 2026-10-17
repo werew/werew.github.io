@@ -1,5 +1,6 @@
 ---
 title: ARP cache poisoning with Ettercap
+description: "A practical guide to ARP cache poisoning with Ettercap: running man-in-the-middle attacks on a LAN, sniffing traffic and applying Ettercap filters."
 date: 2016-01-09
 categories: [Network Security]
 tags: ['MITM', 'ARP']

@@ -1,5 +1,6 @@
 ---
 title: Tackling Associative Arrays in Symbolic Execution
+description: "Comparing data structures for associative arrays with symbolic keys in symbolic execution: why hash maps break down and how symbolic trees handle KLEE-style constraints."
 date: 2019-01-29
 categories: [Program Analysis]
 tags: ['Symbolic execution', 'KLEE']

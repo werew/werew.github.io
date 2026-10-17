@@ -1,5 +1,6 @@
 ---
 title: Fsb - Pwnable.kr
+description: "Pwnable.kr Fsb writeup: using a format string bug to read and write arbitrary memory with %n and friends, with a short primer on format string exploitation."
 date: 2016-09-06
 categories: [Writeups, Pwnable.kr]
 tags: ['Format string']

@@ -1,5 +1,6 @@
 ---
 title: Random - Pwnable.kr
+description: "Pwnable.kr Random writeup: exploiting an unseeded call to rand() in C, whose predictable pseudo-random value lets us XOR our way to the expected 0xdeadbeef."
 date: 2015-11-26
 categories: [Writeups, Pwnable.kr]
 tags: ['PRNG']

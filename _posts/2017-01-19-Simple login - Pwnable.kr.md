@@ -1,5 +1,6 @@
 ---
 title: Simple login - Pwnable.kr
+description: "Pwnable.kr Simple login writeup: exploiting a saved-EBP overwrite in a base64 login routine to pivot the stack and take control of execution."
 date: 2017-01-19
 categories: [Writeups, Pwnable.kr]
 tags: ['Buffer overflow', 'EBP']

@@ -1,5 +1,6 @@
 ---
 title: RHme3 Qualifiers
+description: "An overview of the RHme3 qualifier challenges, covering exploitation, whitebox crypto and side channel analysis, with links to my solutions and the original challenge files."
 date: 2017-09-13
 categories: [Writeups, RHme]
 tags: ['CTF', 'Whitebox Crypto', 'Side Channel Analysis']

@@ -1,5 +1,6 @@
 ---
 title: Memcpy - Pwnable.kr
+description: "Pwnable.kr Memcpy writeup: benchmarking aligned versus unaligned memcpy implementations and surviving the SSE instructions that fault on misaligned heap chunks."
 date: 2016-06-29
 categories: [Writeups, Pwnable.kr]
 tags: ['Memcpy']
